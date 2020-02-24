@@ -1,0 +1,33 @@
+<!doctype html>
+<html>
+    <head>
+        <title>NV Spirit Store</title>
+        <link rel="stylesheet" href="style.css" type="text/css">
+    </head>
+    <body>
+        <header>
+            <h1>NV Spirit Store</h1>
+        </header>
+        <section id="account">
+            <form>
+                <label for="first">First Name: </label>
+                <input name="first" required>
+                <label for="last">Last Name: </label>
+                <input name="last" required>
+                <label for="email">Email: </label>
+                <input name="email" required>
+                <label for="password">Password: </label>
+                <input name="password" type="password" required>
+                <input type="submit" onClick="login(event)">
+            </form>
+        </section>
+        <section id="cart">
+            <h3>Cart</h3>
+            <ul>
+            </ul>
+        </section>
+        <section id="items">
+        </section>
+        <script src="script.js"></script>
+    </body>
+</html>
