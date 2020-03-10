@@ -29,23 +29,35 @@ app.get("/items", (req, res) => {
 
 app.post("/login", (req, res) => {
     const user = req.body.user
-    const sql = `INSERT INTO users 
-    (firstname, lastname, email, password) 
-    VALUES (?, ?, ?, ?)`
+    const sql = `SELECT userid FROM users WHERE password = ? AND email = ?`
     const values = [user.first, user.last, user.email, user.password]
     let userID
-    db.run(sql, values, function (err) {
-        if (err)
-            console.log(err)
-        else {            
-            console.log(`userid ${this.lastID} created`)
+    db.all(sql, values, (err, rows) => {
+        //rows is an array of records from SQL query
+        if (err) {
+            throw err;
         }
-    })
+        //rows.forEach((row) => {
+          //nothing for each row
+        //});
+        //if there is no user
+        if (rows.length == 0) {
+            res.status(404)
+            res.json({
+                message: 'No such user',
+                userID: null
+            })
+        }
+        else {
+            res.status(200)
+            res.json({
+                message: 'User logged in!',
+                userID: rows[0].userID
+            })
+        }
+    });
     
-    res.json({
-        message: 'User logged in',
-        userID: userID 
-    })
+    
 })
 
 //Listens for web requests
